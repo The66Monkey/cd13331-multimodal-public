@@ -165,9 +165,7 @@ def check_content_safety(*, text: str | None = None, media: str | None = None) -
     Returns:
         Tuple of (is_safe, feedback_message, mime_type)
     """
-    # Create a tracing span for this moderation check
-    # TODO: use the tracer to create a span named "moderate_text"
-    # HINT: use tracer.start_as_current_span with the name of the span as argument
+    # DONE!
     with tracer.start_as_current_span("moderate_text") as span:
 
         # Route to the appropriate moderation function
@@ -207,12 +205,7 @@ class ChatSessionWithTracing:
 
     def __init__(self):
         self.session_id = str(uuid.uuid4())
-        # Create a root span for the entire conversation
-        # TODO: use the tracer to create a span named "conversation" and set an attribute "session.id" with the session_id
-        # HINT: use tracer.start_span with the name of the span as argument, and set
-        #       an attribute "session.id" with the session_id by using attributes={"session.id": self.session_id}
-        # NOTE: this is start_span, NOT start_as_current_span because we want to keep this span open across multiple chat turns
-        #      and only close it when the conversation ends.
+        # Create a root span for the entire conversation, DONE!
         self.conversation_span = tracer.start_span(
             "conversation",
             attributes={"session.id": self.session_id},
@@ -240,12 +233,7 @@ class ChatSessionWithTracing:
         """
         # Create a tracing span for this chat turn
 
-        # TODO: use the tracer to create a span named "chat_turn"
-        # HINT: use tracer.start_as_current_span with the name of the span as argument, and
-        #       set the context to the conversation_span using:
-        #           context=trace.set_span_in_context(self.conversation_span)
-        #       so that this span is a child of the conversation span. Feel free to add
-        #       attributes to the span as needed.
+        # DONE!
         with tracer.start_as_current_span(
             "chat_turn",
             context=trace.set_span_in_context(self.conversation_span),
@@ -276,8 +264,7 @@ class ChatSessionWithTracing:
                         feedback = f"⚠️ Content flagged: {safety_message}"
                         response = "[This content was flagged by moderation and not sent to the AI. Please try again.]"
 
-                        # TODO: set an attribute "feedback" in the tracing span with the feedback message
-                        # HINT: use span.set_attribute with "feedback" as the key and feedback as the value
+                        #DONE!
                         span.set_attribute("feedback", feedback)
 
                         return response, past_messages, feedback
@@ -308,8 +295,7 @@ class ChatSessionWithTracing:
                             with open(file_path, "rb") as f:
                                 file_bytes = f.read()
                             
-                            # TODO: create a BinaryContent object with data=file_bytes and media_type=mime_type
-                            # and append it to prompt_parts so it's included in the prompt to the AI
+                            # DONE!
                             prompt_parts.append(BinaryContent(data=file_bytes, media_type=mime_type))
 
                         except ValueError as e:
@@ -323,10 +309,7 @@ class ChatSessionWithTracing:
                 with tracer.start_as_current_span("llm_customer"):
 
                     # GEMINI CALL: Send prompt to AI agent that plays the customer role
-                    # TODO: use await customer_agent.run to get the result
-                    # HINT: pass the prompt_parts as the first argument, and do not forget to
-                    #       pass the past_messages as the message_history otherwise the agent
-                    #       will lose context of the conversation across turns.
+                    # DONE!
                     # NOTE: this is await customer_agent.run since this is an async function.
                     result = await customer_agent.run(
                         prompt_parts,
@@ -393,7 +376,7 @@ def create_chat_interface() -> gr.Blocks:
         with gr.Row():
             # Left column: Chat interface (75% width)
             with gr.Column(scale=3):
-                # TODO: fill the missing arguments to gr.ChatInterface
+                # DONE AND FILLED!
                 gr.ChatInterface(
                 fn=chat_session.chat_with_gemini,
                 type="messages",

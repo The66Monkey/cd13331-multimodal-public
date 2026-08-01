@@ -30,10 +30,7 @@ Provide a detailed rationale for your choices as well as a confidence score betw
 """
 
 
-# TODO: Create a Pydantic AI Agent with:
-#   - instructions=MODERATION_INSTRUCTIONS
-#   - output_type=TextModerationResult
-# Hint: Agent is already imported from pydantic_ai
+# Done and done!
 text_moderation_agent = Agent(
     instructions=MODERATION_INSTRUCTIONS,
     output_type=TextModerationResult,
