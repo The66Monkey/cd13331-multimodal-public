@@ -1,0 +1,508 @@
+(multimodal-moderation) labsuser@vscode:~/code/project/starter$ uv run evals/text/test_cases.py
+Evaluating run_text_moderation ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
+                                            Evaluation Summary: run_text_moderation                                             
+┏━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Case ID                 ┃ Inputs                                    ┃ Outputs                                   ┃ Assertions ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ professional_text_run_1 │ [TextInput(text_file='/voc/work/code/proj │ rationale="The user has not provided any  │ ✔✗✔✔       │
+│                         │ ect/starter/evals/test_data/professional_ │ text for review, so I cannot assess the   │            │
+│                         │ text.txt')]                               │ tone or PII content. I need the customer  │            │
+│                         │                                           │ service representative's message to       │            │
+│                         │                                           │ proceed." contains_pii=False              │            │
+│                         │                                           │ is_unfriendly=False                       │            │
+│                         │                                           │ is_unprofessional=False                   │            │
+├─────────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ professional_text_run_2 │ [TextInput(text_file='/voc/work/code/proj │ rationale='The customer service message   │ ✔✔✔✔       │
+│                         │ ect/starter/evals/test_data/professional_ │ is friendly and professional. It does not │            │
+│                         │ text.txt')]                               │ contain any personally-identifiable       │            │
+│                         │                                           │ information.' contains_pii=False          │            │
+│                         │                                           │ is_unfriendly=False                       │            │
+│                         │                                           │ is_unprofessional=False                   │            │
+├─────────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ professional_text_run_3 │ [TextInput(text_file='/voc/work/code/proj │ rationale='The customer service message   │ ✔✔✔✔       │
+│                         │ ect/starter/evals/test_data/professional_ │ is friendly and professional. No          │            │
+│                         │ text.txt')]                               │ personally-identifiable information (PII) │            │
+│                         │                                           │ was detected.' contains_pii=False         │            │
+│                         │                                           │ is_unfriendly=False                       │            │
+│                         │                                           │ is_unprofessional=False                   │            │
+├─────────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ professional_text_run_4 │ [TextInput(text_file='/voc/work/code/proj │ rationale='The customer representative is │ ✗✗✔✔       │
+│                         │ ect/starter/evals/test_data/professional_ │ not using a friendly or professional      │            │
+│                         │ text.txt')]                               │ tone. The message does not contain any    │            │
+│                         │                                           │ personally-identifiable information.'     │            │
+│                         │                                           │ contains_pii=False is_unfriendly=True     │            │
+│                         │                                           │ is_unprofessional=True                    │            │
+├─────────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ professional_text_run_5 │ [TextInput(text_file='/voc/work/code/proj │ rationale='The message is friendly and    │ ✔✔✔✔       │
+│                         │ ect/starter/evals/test_data/professional_ │ professional. No PII detected.'           │            │
+│                         │ text.txt')]                               │ contains_pii=False is_unfriendly=False    │            │
+│                         │                                           │ is_unprofessional=False                   │            │
+├─────────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ text_with_pii_run_1     │ [TextInput(text_file='/voc/work/code/proj │ rationale="The customer representative's  │ ✗✗✔✔       │
+│                         │ ect/starter/evals/test_data/text_with_pii │ message has been analyzed. The tone is    │            │
+│                         │ .txt')]                                   │ friendly and professional, and there is   │            │
+│                         │                                           │ no personally-identifiable information    │            │
+│                         │                                           │ (PII) present. The interaction aligns     │            │
+│                         │                                           │ with ACME enterprise's standards for      │            │
+│                         │                                           │ customer service." contains_pii=False     │            │
+│                         │                                           │ is_unfriendly=False                       │            │
+│                         │                                           │ is_unprofessional=False                   │            │
+├─────────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ text_with_pii_run_2     │ [TextInput(text_file='/voc/work/code/proj │ rationale='The customer representative is │ ✗✗✔✔       │
+│                         │ ect/starter/evals/test_data/text_with_pii │ not using friendly and professional       │            │
+│                         │ .txt')]                                   │ tone.' contains_pii=False                 │            │
+│                         │                                           │ is_unfriendly=True is_unprofessional=True │            │
+├─────────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ text_with_pii_run_3     │ [TextInput(text_file='/voc/work/code/proj │ rationale='The user has not provided a    │ ✗✗✔✔       │
+│                         │ ect/starter/evals/test_data/text_with_pii │ message from the customer representative. │            │
+│                         │ .txt')]                                   │ Therefore, I cannot assess the tone or    │            │
+│                         │                                           │ check for PII.' contains_pii=False        │            │
+│                         │                                           │ is_unfriendly=False                       │            │
+│                         │                                           │ is_unprofessional=False                   │            │
+├─────────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ text_with_pii_run_4     │ [TextInput(text_file='/voc/work/code/proj │ rationale='The user has not provided a    │ ✗✗✔✔       │
+│                         │ ect/starter/evals/test_data/text_with_pii │ message to review. Please provide a       │            │
+│                         │ .txt')]                                   │ message so I can assess its tone and      │            │
+│                         │                                           │ check for any personally-identifiable     │            │
+│                         │                                           │ information.' contains_pii=False          │            │
+│                         │                                           │ is_unfriendly=False                       │            │
+│                         │                                           │ is_unprofessional=False                   │            │
+├─────────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ text_with_pii_run_5     │ [TextInput(text_file='/voc/work/code/proj │ rationale='The user has not provided a    │ ✗✗✔✔       │
+│                         │ ect/starter/evals/test_data/text_with_pii │ message from the customer representative. │            │
+│                         │ .txt')]                                   │ Therefore, I cannot assess the tone or    │            │
+│                         │                                           │ check for PII.' contains_pii=False        │            │
+│                         │                                           │ is_unfriendly=False                       │            │
+│                         │                                           │ is_unprofessional=False                   │            │
+├─────────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ unfriendly_text_run_1   │ [TextInput(text_file='/voc/work/code/proj │ rationale='The customer service message   │ ✗✗✔✔       │
+│                         │ ect/starter/evals/test_data/unfriendly_te │ is friendly and professional. No PII was  │            │
+│                         │ xt.txt')]                                 │ detected.' contains_pii=False             │            │
+│                         │                                           │ is_unfriendly=False                       │            │
+│                         │                                           │ is_unprofessional=False                   │            │
+├─────────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ unfriendly_text_run_2   │ [TextInput(text_file='/voc/work/code/proj │ rationale='The customer service message   │ ✗✗✔✔       │
+│                         │ ect/starter/evals/test_data/unfriendly_te │ is friendly and professional. No          │            │
+│                         │ xt.txt')]                                 │ personally-identifiable information was   │            │
+│                         │                                           │ detected.' contains_pii=False             │            │
+│                         │                                           │ is_unfriendly=False                       │            │
+│                         │                                           │ is_unprofessional=False                   │            │
+├─────────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ unfriendly_text_run_3   │ [TextInput(text_file='/voc/work/code/proj │ rationale='The user has not provided a    │ ✗✗✔✔       │
+│                         │ ect/starter/evals/test_data/unfriendly_te │ message from the customer representative. │            │
+│                         │ xt.txt')]                                 │ Therefore, I cannot assess the tone or    │            │
+│                         │                                           │ check for PII.' contains_pii=False        │            │
+│                         │                                           │ is_unfriendly=False                       │            │
+│                         │                                           │ is_unprofessional=False                   │            │
+├─────────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ unfriendly_text_run_4   │ [TextInput(text_file='/voc/work/code/proj │ rationale='The user is asking to review   │ ✗✗✔✔       │
+│                         │ ect/starter/evals/test_data/unfriendly_te │ the text, but hasn' contains_pii=False    │            │
+│                         │ xt.txt')]                                 │ is_unfriendly=False                       │            │
+│                         │                                           │ is_unprofessional=False                   │            │
+├─────────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ unfriendly_text_run_5   │ [TextInput(text_file='/voc/work/code/proj │ rationale='The customer service message   │ ✗✗✔✔       │
+│                         │ ect/starter/evals/test_data/unfriendly_te │ is friendly and professional. No          │            │
+│                         │ xt.txt')]                                 │ personally-identifiable information (PII) │            │
+│                         │                                           │ was detected.' contains_pii=False         │            │
+│                         │                                           │ is_unfriendly=False                       │            │
+│                         │                                           │ is_unprofessional=False                   │            │
+├─────────────────────────┼───────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ Averages                │                                           │                                           │ 61.7% ✔    │
+└─────────────────────────┴───────────────────────────────────────────┴───────────────────────────────────────────┴────────────┘
+(multimodal-moderation) labsuser@vscode:~/code/project/starter$ uv run evals/image/test_cases.py
+Evaluating run_image_moderation ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
+                                            Evaluation Summary: run_image_moderation                                            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Case ID                  ┃ Inputs                     ┃ Outputs                    ┃ Assertions ┃ Evaluator Failures         ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ professional_image_run_1 │ [ImageInput(image_file='/v │ rationale='The image is    │ ✔✔✔✔       │ -                          │
+│                          │ oc/work/code/project/start │ appropriate for a          │            │                            │
+│                          │ er/evals/test_data/profess │ professional customer      │            │                            │
+│                          │ ional_image.jpg')]         │ service setting. It is a   │            │                            │
+│                          │                            │ clear, high-quality image  │            │                            │
+│                          │                            │ that does not contain any  │            │                            │
+│                          │                            │ disturbing elements or     │            │                            │
+│                          │                            │ personally identifiable    │            │                            │
+│                          │                            │ information.'              │            │                            │
+│                          │                            │ contains_pii=False         │            │                            │
+│                          │                            │ is_disturbing=False        │            │                            │
+│                          │                            │ is_low_quality=False       │            │                            │
+├──────────────────────────┼────────────────────────────┼────────────────────────────┼────────────┼────────────────────────────┤
+│ professional_image_run_2 │ [ImageInput(image_file='/v │ rationale='The image is    │ ✔✔✔        │ LLMJudge: RetryError:      │
+│                          │ oc/work/code/project/start │ professional and suitable  │            │ RetryError[<Future at      │
+│                          │ er/evals/test_data/profess │ for a customer service     │            │ 0x7f92d730e8d0             │
+│                          │ ional_image.jpg')]         │ setting. It is clear,      │            │ state=finished raised      │
+│                          │                            │ well-lit, and does not     │            │ ClientError>]              │
+│                          │                            │ contain any disturbing     │            │                            │
+│                          │                            │ content or personally      │            │                            │
+│                          │                            │ identifiable information.' │            │                            │
+│                          │                            │ contains_pii=False         │            │                            │
+│                          │                            │ is_disturbing=False        │            │                            │
+│                          │                            │ is_low_quality=False       │            │                            │
+├──────────────────────────┼────────────────────────────┼────────────────────────────┼────────────┼────────────────────────────┤
+│ professional_image_run_3 │ [ImageInput(image_file='/v │ rationale='The image is a  │ ✔✔✔        │ LLMJudge: RetryError:      │
+│                          │ oc/work/code/project/start │ product shot of a power    │            │ RetryError[<Future at      │
+│                          │ er/evals/test_data/profess │ bank, laptop, headphones,  │            │ 0x7f92d41d8680             │
+│                          │ ional_image.jpg')]         │ and smartphone. It is      │            │ state=finished raised      │
+│                          │                            │ well-lit, in focus, and    │            │ ClientError>]              │
+│                          │                            │ professionally composed.   │            │                            │
+│                          │                            │ There are no people or     │            │                            │
+│                          │                            │ disturbing elements        │            │                            │
+│                          │                            │ present, making it         │            │                            │
+│                          │                            │ suitable for a customer    │            │                            │
+│                          │                            │ service setting.'          │            │                            │
+│                          │                            │ contains_pii=False         │            │                            │
+│                          │                            │ is_disturbing=False        │            │                            │
+│                          │                            │ is_low_quality=False       │            │                            │
+├──────────────────────────┼────────────────────────────┼────────────────────────────┼────────────┼────────────────────────────┤
+│ professional_image_run_4 │ [ImageInput(image_file='/v │ rationale='The image is of │ ✔✔✔        │ LLMJudge: RetryError:      │
+│                          │ oc/work/code/project/start │ a power bank, a laptop,    │            │ RetryError[<Future at      │
+│                          │ er/evals/test_data/profess │ headphones, and a          │            │ 0x7f92d4237140             │
+│                          │ ional_image.jpg')]         │ smartphone on a desk.      │            │ state=finished raised      │
+│                          │                            │ There are no disturbing    │            │ ClientError>]              │
+│                          │                            │ elements, PII, or quality  │            │                            │
+│                          │                            │ issues with the image.'    │            │                            │
+│                          │                            │ contains_pii=False         │            │                            │
+│                          │                            │ is_disturbing=False        │            │                            │
+│                          │                            │ is_low_quality=False       │            │                            │
+├──────────────────────────┼────────────────────────────┼────────────────────────────┼────────────┼────────────────────────────┤
+│ professional_image_run_5 │ [ImageInput(image_file='/v │ rationale='The image is    │ ✔✔✔        │ LLMJudge: RetryError:      │
+│                          │ oc/work/code/project/start │ appropriate for a          │            │ RetryError[<Future at      │
+│                          │ er/evals/test_data/profess │ professional customer      │            │ 0x7f92d749dd00             │
+│                          │ ional_image.jpg')]         │ service setting. It is     │            │ state=finished raised      │
+│                          │                            │ clear, well-lit, and does  │            │ ClientError>]              │
+│                          │                            │ not contain any disturbing │            │                            │
+│                          │                            │ elements or personally     │            │                            │
+│                          │                            │ identifiable information.' │            │                            │
+│                          │                            │ contains_pii=False         │            │                            │
+│                          │                            │ is_disturbing=False        │            │                            │
+│                          │                            │ is_low_quality=False       │            │                            │
+├──────────────────────────┼────────────────────────────┼────────────────────────────┼────────────┼────────────────────────────┤
+│ image_with_person_run_1  │ [ImageInput(image_file='/v │ rationale='The image       │ ✔✔✔        │ LLMJudge: RetryError:      │
+│                          │ oc/work/code/project/start │ contains a person, which   │            │ RetryError[<Future at      │
+│                          │ er/evals/test_data/image_w │ is considered              │            │ 0x7f92d41aea80             │
+│                          │ ith_person.jpg')]          │ personally-identifiable    │            │ state=finished raised      │
+│                          │                            │ information (PII).         │            │ ClientError>]              │
+│                          │                            │ Therefore, it is not       │            │                            │
+│                          │                            │ appropriate for a          │            │                            │
+│                          │                            │ professional customer      │            │                            │
+│                          │                            │ service setting where      │            │                            │
+│                          │                            │ privacy should be          │            │                            │
+│                          │                            │ maintained.'               │            │                            │
+│                          │                            │ contains_pii=True          │            │                            │
+│                          │                            │ is_disturbing=False        │            │                            │
+│                          │                            │ is_low_quality=False       │            │                            │
+├──────────────────────────┼────────────────────────────┼────────────────────────────┼────────────┼────────────────────────────┤
+│ image_with_person_run_2  │ [ImageInput(image_file='/v │ rationale='The image shows │ ✔✔✔✔       │ -                          │
+│                          │ oc/work/code/project/start │ a person, which is         │            │                            │
+│                          │ er/evals/test_data/image_w │ considered                 │            │                            │
+│                          │ ith_person.jpg')]          │ personally-identifiable    │            │                            │
+│                          │                            │ information (PII) and is   │            │                            │
+│                          │                            │ not appropriate for a      │            │                            │
+│                          │                            │ professional customer      │            │                            │
+│                          │                            │ service setting.'          │            │                            │
+│                          │                            │ contains_pii=True          │            │                            │
+│                          │                            │ is_disturbing=False        │            │                            │
+│                          │                            │ is_low_quality=False       │            │                            │
+├──────────────────────────┼────────────────────────────┼────────────────────────────┼────────────┼────────────────────────────┤
+│ image_with_person_run_3  │ [ImageInput(image_file='/v │ rationale='The image shows │ ✔✔✔✔       │ -                          │
+│                          │ oc/work/code/project/start │ a person, which is         │            │                            │
+│                          │ er/evals/test_data/image_w │ considered                 │            │                            │
+│                          │ ith_person.jpg')]          │ personally-identifiable    │            │                            │
+│                          │                            │ information (PII) and is   │            │                            │
+│                          │                            │ not appropriate for a      │            │                            │
+│                          │                            │ professional customer      │            │                            │
+│                          │                            │ service setting. The image │            │                            │
+│                          │                            │ quality is good and it is  │            │                            │
+│                          │                            │ not disturbing.'           │            │                            │
+│                          │                            │ contains_pii=True          │            │                            │
+│                          │                            │ is_disturbing=False        │            │                            │
+│                          │                            │ is_low_quality=False       │            │                            │
+├──────────────────────────┼────────────────────────────┼────────────────────────────┼────────────┼────────────────────────────┤
+│ image_with_person_run_4  │ [ImageInput(image_file='/v │ rationale='The image       │ ✔✔✔        │ LLMJudge: RetryError:      │
+│                          │ oc/work/code/project/start │ contains a person, which   │            │ RetryError[<Future at      │
+│                          │ er/evals/test_data/image_w │ is considered              │            │ 0x7f92d73e0ef0             │
+│                          │ ith_person.jpg')]          │ personally-identifiable    │            │ state=finished raised      │
+│                          │                            │ information (PII) and is   │            │ ClientError>]              │
+│                          │                            │ not appropriate for a      │            │                            │
+│                          │                            │ professional customer      │            │                            │
+│                          │                            │ service setting. The image │            │                            │
+│                          │                            │ quality is good and it is  │            │                            │
+│                          │                            │ not disturbing.'           │            │                            │
+│                          │                            │ contains_pii=True          │            │                            │
+│                          │                            │ is_disturbing=False        │            │                            │
+│                          │                            │ is_low_quality=False       │            │                            │
+├──────────────────────────┼────────────────────────────┼────────────────────────────┼────────────┼────────────────────────────┤
+│ image_with_person_run_5  │ [ImageInput(image_file='/v │ rationale='The image       │ ✔✔✔        │ LLMJudge: RetryError:      │
+│                          │ oc/work/code/project/start │ contains a person, which   │            │ RetryError[<Future at      │
+│                          │ er/evals/test_data/image_w │ is considered Personally   │            │ 0x7f92d74c02c0             │
+│                          │ ith_person.jpg')]          │ Identifiable Information   │            │ state=finished raised      │
+│                          │                            │ (PII). Additionally, while │            │ ClientError>]              │
+│                          │                            │ not overtly disturbing,    │            │                            │
+│                          │                            │ the artificial nature of   │            │                            │
+│                          │                            │ the image might be         │            │                            │
+│                          │                            │ noticeable in a            │            │                            │
+│                          │                            │ professional customer      │            │                            │
+│                          │                            │ service context. The image │            │                            │
+│                          │                            │ quality is acceptable and  │            │                            │
+│                          │                            │ not low.'                  │            │                            │
+│                          │                            │ contains_pii=True          │            │                            │
+│                          │                            │ is_disturbing=False        │            │                            │
+│                          │                            │ is_low_quality=False       │            │                            │
+├──────────────────────────┼────────────────────────────┼────────────────────────────┼────────────┼────────────────────────────┤
+│ low_quality_image_run_1  │ [ImageInput(image_file='/v │ rationale='The image       │ ✗✔✔✔       │ -                          │
+│                          │ oc/work/code/project/start │ contains a hand holding a  │            │                            │
+│                          │ er/evals/test_data/low_qua │ device, which is           │            │                            │
+│                          │ lity_image.jpg')]          │ considered PII. The image  │            │                            │
+│                          │                            │ is also blurry and low     │            │                            │
+│                          │                            │ quality, making it         │            │                            │
+│                          │                            │ unprofessional.'           │            │                            │
+│                          │                            │ contains_pii=True          │            │                            │
+│                          │                            │ is_disturbing=False        │            │                            │
+│                          │                            │ is_low_quality=True        │            │                            │
+├──────────────────────────┼────────────────────────────┼────────────────────────────┼────────────┼────────────────────────────┤
+│ low_quality_image_run_2  │ [ImageInput(image_file='/v │ rationale='The image       │ ✗✔✔        │ LLMJudge: RetryError:      │
+│                          │ oc/work/code/project/start │ contains a hand, which is  │            │ RetryError[<Future at      │
+│                          │ er/evals/test_data/low_qua │ considered Personally      │            │ 0x7f92d730f890             │
+│                          │ lity_image.jpg')]          │ Identifiable Information   │            │ state=finished raised      │
+│                          │                            │ (PII). The image quality   │            │ ClientError>]              │
+│                          │                            │ is also low due to         │            │                            │
+│                          │                            │ blurriness and pixelation, │            │                            │
+│                          │                            │ making it unsuitable for   │            │                            │
+│                          │                            │ professional customer      │            │                            │
+│                          │                            │ service interactions.'     │            │                            │
+│                          │                            │ contains_pii=True          │            │                            │
+│                          │                            │ is_disturbing=False        │            │                            │
+│                          │                            │ is_low_quality=True        │            │                            │
+├──────────────────────────┼────────────────────────────┼────────────────────────────┼────────────┼────────────────────────────┤
+│ low_quality_image_run_3  │ [ImageInput(image_file='/v │ rationale='The image       │ ✗✔✔        │ LLMJudge: RetryError:      │
+│                          │ oc/work/code/project/start │ contains a hand, which is  │            │ RetryError[<Future at      │
+│                          │ er/evals/test_data/low_qua │ considered                 │            │ 0x7f92d75e49b0             │
+│                          │ lity_image.jpg')]          │ personally-identifiable    │            │ state=finished raised      │
+│                          │                            │ information (PII). The     │            │ ClientError>]              │
+│                          │                            │ image quality is also low  │            │                            │
+│                          │                            │ due to blurriness and a    │            │                            │
+│                          │                            │ grainy texture, making it  │            │                            │
+│                          │                            │ unsuitable for a           │            │                            │
+│                          │                            │ professional customer      │            │                            │
+│                          │                            │ service setting.'          │            │                            │
+│                          │                            │ contains_pii=True          │            │                            │
+│                          │                            │ is_disturbing=False        │            │                            │
+│                          │                            │ is_low_quality=True        │            │                            │
+├──────────────────────────┼────────────────────────────┼────────────────────────────┼────────────┼────────────────────────────┤
+│ low_quality_image_run_4  │ [ImageInput(image_file='/v │ rationale='The image       │ ✗✔✔        │ LLMJudge: RetryError:      │
+│                          │ oc/work/code/project/start │ contains a hand, which is  │            │ RetryError[<Future at      │
+│                          │ er/evals/test_data/low_qua │ considered                 │            │ 0x7f92d73bd760             │
+│                          │ lity_image.jpg')]          │ personally-identifiable    │            │ state=finished raised      │
+│                          │                            │ information (PII).         │            │ ClientError>]              │
+│                          │                            │ Additionally, the image is │            │                            │
+│                          │                            │ slightly out of focus,     │            │                            │
+│                          │                            │ making it of low quality.' │            │                            │
+│                          │                            │ contains_pii=True          │            │                            │
+│                          │                            │ is_disturbing=False        │            │                            │
+│                          │                            │ is_low_quality=True        │            │                            │
+├──────────────────────────┼────────────────────────────┼────────────────────────────┼────────────┼────────────────────────────┤
+│ low_quality_image_run_5  │ [ImageInput(image_file='/v │ rationale='The image       │ ✗✔✔        │ LLMJudge: RetryError:      │
+│                          │ oc/work/code/project/start │ contains a hand, which is  │            │ RetryError[<Future at      │
+│                          │ er/evals/test_data/low_qua │ considered PII.            │            │ 0x7f92d749d4f0             │
+│                          │ lity_image.jpg')]          │ Additionally, the image    │            │ state=finished raised      │
+│                          │                            │ has a blurry effect and    │            │ ClientError>]              │
+│                          │                            │ some specks that might be  │            │                            │
+│                          │                            │ considered as low quality  │            │                            │
+│                          │                            │ or dust.'                  │            │                            │
+│                          │                            │ contains_pii=True          │            │                            │
+│                          │                            │ is_disturbing=False        │            │                            │
+│                          │                            │ is_low_quality=True        │            │                            │
+├──────────────────────────┼────────────────────────────┼────────────────────────────┼────────────┼────────────────────────────┤
+│ Averages                 │                            │                            │ 89.8% ✔    │                            │
+└──────────────────────────┴────────────────────────────┴────────────────────────────┴────────────┴────────────────────────────┘
+(multimodal-moderation) labsuser@vscode:~/code/project/starter$ uv run evals/video/test_cases.py
+Evaluating run_video_moderation ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
+                                            Evaluation Summary: run_video_moderation                                            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Case ID                  ┃ Inputs                                   ┃ Outputs                                   ┃ Assertions ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ professional_video_run_1 │ [VideoInput(video_file='/voc/work/code/p │ rationale='The video does not contain any │ ✔✗✔✔       │
+│                          │ roject/starter/evals/test_data/professio │ disturbing content or PII. The video      │            │
+│                          │ nal_video.mp4')]                         │ quality is good and clear throughout.'    │            │
+│                          │                                          │ contains_pii=False is_disturbing=False    │            │
+│                          │                                          │ is_low_quality=False                      │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ professional_video_run_2 │ [VideoInput(video_file='/voc/work/code/p │ rationale='The video does not contain any │ ✔✔✔✔       │
+│                          │ roject/starter/evals/test_data/professio │ disturbing content or PII. The video      │            │
+│                          │ nal_video.mp4')]                         │ quality is also good.' contains_pii=False │            │
+│                          │                                          │ is_disturbing=False is_low_quality=False  │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ professional_video_run_3 │ [VideoInput(video_file='/voc/work/code/p │ rationale='The video does not contain any │ ✔✔✔✔       │
+│                          │ roject/starter/evals/test_data/professio │ disturbing content or PII. The video      │            │
+│                          │ nal_video.mp4')]                         │ quality is sufficient and not             │            │
+│                          │                                          │ low-quality.' contains_pii=False          │            │
+│                          │                                          │ is_disturbing=False is_low_quality=False  │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ professional_video_run_4 │ [VideoInput(video_file='/voc/work/code/p │ rationale='The video does not contain any │ ✔✔✔✔       │
+│                          │ roject/starter/evals/test_data/professio │ disturbing content or PII. The video      │            │
+│                          │ nal_video.mp4')]                         │ quality is also good and does not contain │            │
+│                          │                                          │ any low-quality portions.'                │            │
+│                          │                                          │ contains_pii=False is_disturbing=False    │            │
+│                          │                                          │ is_low_quality=False                      │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ professional_video_run_5 │ [VideoInput(video_file='/voc/work/code/p │ rationale='The video does not contain any │ ✔✔✔✔       │
+│                          │ roject/starter/evals/test_data/professio │ disturbing content or personally          │            │
+│                          │ nal_video.mp4')]                         │ identifiable information. The video       │            │
+│                          │                                          │ quality is also good.' contains_pii=False │            │
+│                          │                                          │ is_disturbing=False is_low_quality=False  │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ video_with_face_run_1    │ [VideoInput(video_file='/voc/work/code/p │ rationale='The video does not contain any │ ✗✗✔✔       │
+│                          │ roject/starter/evals/test_data/video_wit │ disturbing content or personally          │            │
+│                          │ h_face.mp4')]                            │ identifiable information. The video       │            │
+│                          │                                          │ quality is good and suitable for          │            │
+│                          │                                          │ professional customer service.'           │            │
+│                          │                                          │ contains_pii=False is_disturbing=False    │            │
+│                          │                                          │ is_low_quality=False                      │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ video_with_face_run_2    │ [VideoInput(video_file='/voc/work/code/p │ rationale='The video contains a person'   │ ✔✔✔✔       │
+│                          │ roject/starter/evals/test_data/video_wit │ contains_pii=True is_disturbing=False     │            │
+│                          │ h_face.mp4')]                            │ is_low_quality=False                      │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ video_with_face_run_3    │ [VideoInput(video_file='/voc/work/code/p │ rationale='The video does not contain any │ ✔✗✔✔       │
+│                          │ roject/starter/evals/test_data/video_wit │ disturbing content, PII, or low-quality   │            │
+│                          │ h_face.mp4')]                            │ footage. The video shows a person holding │            │
+│                          │                                          │ a portable charger with a laptop and      │            │
+│                          │                                          │ headphones in the background. The quality │            │
+│                          │                                          │ is good and there is no disturbing        │            │
+│                          │                                          │ content.' contains_pii=True               │            │
+│                          │                                          │ is_disturbing=False is_low_quality=False  │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ video_with_face_run_4    │ [VideoInput(video_file='/voc/work/code/p │ rationale='The video does not contain any │ ✔✗✔✔       │
+│                          │ roject/starter/evals/test_data/video_wit │ harmful content. It shows a person        │            │
+│                          │ h_face.mp4')]                            │ holding a power bank, and the video       │            │
+│                          │                                          │ quality is good. There is no PII or       │            │
+│                          │                                          │ disturbing content.' contains_pii=True    │            │
+│                          │                                          │ is_disturbing=False is_low_quality=False  │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ video_with_face_run_5    │ [VideoInput(video_file='/voc/work/code/p │ rationale='The video is of good quality   │ ✗✗✔✔       │
+│                          │ roject/starter/evals/test_data/video_wit │ and does not contain any disturbing       │            │
+│                          │ h_face.mp4')]                            │ content or PII.' contains_pii=False       │            │
+│                          │                                          │ is_disturbing=False is_low_quality=False  │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ Averages                 │                                          │                                           │ 82.5% ✔    │
+└──────────────────────────┴──────────────────────────────────────────┴───────────────────────────────────────────┴────────────┘
+(multimodal-moderation) labsuser@vscode:~/code/project/starter$ uv run evals/audio/test_cases.py
+Evaluating run_audio_moderation ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:00
+                                            Evaluation Summary: run_audio_moderation                                            
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┓
+┃ Case ID                  ┃ Inputs                                   ┃ Outputs                                   ┃ Assertions ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━┩
+│ professional_audio_run_1 │ [AudioInput(audio_file='/voc/work/code/p │ rationale='The audio does not contain any │ ✔✔✔✔✔      │
+│                          │ roject/starter/evals/test_data/professio │ unfriendly or unprofessional content. No  │            │
+│                          │ nal_audio.mp3')]                         │ PII was detected.' transcription='Welcome │            │
+│                          │                                          │ to our customer support'                  │            │
+│                          │                                          │ contains_pii=False is_unfriendly=False    │            │
+│                          │                                          │ is_unprofessional=False                   │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ professional_audio_run_2 │ [AudioInput(audio_file='/voc/work/code/p │ rationale='The audio is friendly and      │ ✔✔✔✔✔      │
+│                          │ roject/starter/evals/test_data/professio │ professional, with no identifiable        │            │
+│                          │ nal_audio.mp3')]                         │ information or harmful content.'          │            │
+│                          │                                          │ transcription='Welcome to our customer    │            │
+│                          │                                          │ support.' contains_pii=False              │            │
+│                          │                                          │ is_unfriendly=False                       │            │
+│                          │                                          │ is_unprofessional=False                   │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ professional_audio_run_3 │ [AudioInput(audio_file='/voc/work/code/p │ rationale='The audio is friendly and      │ ✔✗✔✔✔      │
+│                          │ roject/starter/evals/test_data/professio │ professional, and does not contain any    │            │
+│                          │ nal_audio.mp3')]                         │ PII.' transcription='Welcome to our       │            │
+│                          │                                          │ customer support' contains_pii=False      │            │
+│                          │                                          │ is_unfriendly=False                       │            │
+│                          │                                          │ is_unprofessional=False                   │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ professional_audio_run_4 │ [AudioInput(audio_file='/voc/work/code/p │ rationale='The audio is friendly and      │ ✔✔✔✔✔      │
+│                          │ roject/starter/evals/test_data/professio │ professional. No PII was detected.'       │            │
+│                          │ nal_audio.mp3')]                         │ transcription='Welcome to our customer    │            │
+│                          │                                          │ support' contains_pii=False               │            │
+│                          │                                          │ is_unfriendly=False                       │            │
+│                          │                                          │ is_unprofessional=False                   │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ professional_audio_run_5 │ [AudioInput(audio_file='/voc/work/code/p │ rationale='The audio is friendly and      │ ✔✔✔✔✔      │
+│                          │ roject/starter/evals/test_data/professio │ professional, with no harmful content     │            │
+│                          │ nal_audio.mp3')]                         │ detected.' transcription='Welcome to our  │            │
+│                          │                                          │ customer support.' contains_pii=False     │            │
+│                          │                                          │ is_unfriendly=False                       │            │
+│                          │                                          │ is_unprofessional=False                   │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ audio_with_pii_run_1     │ [AudioInput(audio_file='/voc/work/code/p │ rationale='The audio contains             │ ✔✔✔✔✔      │
+│                          │ roject/starter/evals/test_data/audio_wit │ personally-identifiable information (PII) │            │
+│                          │ h_pii.mp3')]                             │ in the form of a date of birth (November  │            │
+│                          │                                          │ 2, 1978) and a social security number     │            │
+│                          │                                          │ (123456789). This information should not  │            │
+│                          │                                          │ be shared over a recorded line for        │            │
+│                          │                                          │ security purposes. The tone is            │            │
+│                          │                                          │ professional and friendly.'               │            │
+│                          │                                          │ transcription='Welcome to the customer    │            │
+│                          │                                          │ support center. My name is John. Can you  │            │
+│                          │                                          │ please verify that your date of birth is  │            │
+│                          │                                          │ November 2nd, 1978 and your social        │            │
+│                          │                                          │ security number is 123456789'             │            │
+│                          │                                          │ contains_pii=True is_unfriendly=False     │            │
+│                          │                                          │ is_unprofessional=False                   │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ audio_with_pii_run_2     │ [AudioInput(audio_file='/voc/work/code/p │ rationale='The audio contains             │ ✔✗✔✔✔      │
+│                          │ roject/starter/evals/test_data/audio_wit │ personally-identifiable information (PII) │            │
+│                          │ h_pii.mp3')]                             │ in the form of a date of birth and a      │            │
+│                          │                                          │ social security number, which should not  │            │
+│                          │                                          │ be requested or shared in a customer      │            │
+│                          │                                          │ service interaction. The tone is          │            │
+│                          │                                          │ professional and friendly.'               │            │
+│                          │                                          │ transcription='Welcome to the customer    │            │
+│                          │                                          │ support center. My name is John, can you  │            │
+│                          │                                          │ please verify that your date of birth is  │            │
+│                          │                                          │ November 2nd, 1978 and your social        │            │
+│                          │                                          │ security number is 123456789?'            │            │
+│                          │                                          │ contains_pii=True is_unfriendly=False     │            │
+│                          │                                          │ is_unprofessional=False                   │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ audio_with_pii_run_3     │ [AudioInput(audio_file='/voc/work/code/p │ rationale='The audio contains personally  │ ✔✔✔✔✔      │
+│                          │ roject/starter/evals/test_data/audio_wit │ identifiable information including a date │            │
+│                          │ h_pii.mp3')]                             │ of birth and a social security number,    │            │
+│                          │                                          │ which should not be shared in a customer  │            │
+│                          │                                          │ service interaction.'                     │            │
+│                          │                                          │ transcription='Welcome to the customer    │            │
+│                          │                                          │ support center. My name is John, can you  │            │
+│                          │                                          │ please verify that your date of birth is  │            │
+│                          │                                          │ November 2nd, 1978 and your social        │            │
+│                          │                                          │ security number is 123456789.'            │            │
+│                          │                                          │ contains_pii=True is_unfriendly=False     │            │
+│                          │                                          │ is_unprofessional=False                   │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ audio_with_pii_run_4     │ [AudioInput(audio_file='/voc/work/code/p │ rationale='The audio contains personally  │ ✔✗✔✔✔      │
+│                          │ roject/starter/evals/test_data/audio_wit │ identifiable information (PII) including  │            │
+│                          │ h_pii.mp3')]                             │ a date of birth and a social security     │            │
+│                          │                                          │ number, which should be handled with      │            │
+│                          │                                          │ strict security protocols and not shared  │            │
+│                          │                                          │ over unsecured channels. The tone and     │            │
+│                          │                                          │ content are professional and friendly,    │            │
+│                          │                                          │ suitable for a customer service setting.' │            │
+│                          │                                          │ transcription='Welcome to the customer    │            │
+│                          │                                          │ support center. My name is John. Can you  │            │
+│                          │                                          │ please verify that your date of birth is  │            │
+│                          │                                          │ November 2nd, 1978 and your social        │            │
+│                          │                                          │ security number is 123456789?'            │            │
+│                          │                                          │ contains_pii=True is_unfriendly=False     │            │
+│                          │                                          │ is_unprofessional=False                   │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ audio_with_pii_run_5     │ [AudioInput(audio_file='/voc/work/code/p │ rationale='The audio contains             │ ✔✗✔✔✔      │
+│                          │ roject/starter/evals/test_data/audio_wit │ personally-identifiable information (PII) │            │
+│                          │ h_pii.mp3')]                             │ as it includes a date of birth and a      │            │
+│                          │                                          │ social security number. However, the tone │            │
+│                          │                                          │ and content are professional and          │            │
+│                          │                                          │ friendly, suitable for a customer service │            │
+│                          │                                          │ setting.' transcription='Welcome to the   │            │
+│                          │                                          │ customer support center. My name is John. │            │
+│                          │                                          │ Can you please verify that your date of   │            │
+│                          │                                          │ birth is November 2nd, 1978 and your      │            │
+│                          │                                          │ social security number is 123456789.'     │            │
+│                          │                                          │ contains_pii=True is_unfriendly=False     │            │
+│                          │                                          │ is_unprofessional=False                   │            │
+├──────────────────────────┼──────────────────────────────────────────┼───────────────────────────────────────────┼────────────┤
+│ Averages                 │                                          │                                           │ 92.0% ✔    │
+└──────────────────────────┴──────────────────────────────────────────┴───────────────────────────────────────────┴────────────┘
+(multimodal-moderation) labsuser@vscode:~/code/project/starter$ 
